@@ -30,15 +30,16 @@ mvn clean package
 
 ## 🚀 Usage
 
-```bash
 java -jar <jar-file> -i <input-file> -o <output-file>
-Example:
+##Example:
 java -jar my-converter-1.0.jar -i <input-file> -o <output-file>
 java -jar target/my-converter-1.0.jar -i <input-file> -o <output-file>
 
-Helper:
+##Helper:
 java -jar target/my-converter-1.0.jar -h
 java -jar target/my-converter-1.0.jar --help
+
+```
 
 ### 📦 Components
 
