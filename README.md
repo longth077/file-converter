@@ -68,5 +68,5 @@ This project uses Java 11 with the following libraries:
 | **Apache Avro**             | Defines schema and works with Parquet for data serialization.               |
 | **Open CSV**                | Lightweight CSV reader/writer used for parsing and generating CSV files.    |
 | **Hadoop Common**           | Required for I/O and filesystem support when working with Parquet.          |
-| **Hadoop Client Api**       | Provides APIs for accessing Hadoop-compatible filesystems if needed.        |
+| **Hadoop Client Api**       | Provides APIs for integrates with the Hadoop I/O system.                    |
 
