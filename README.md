@@ -8,6 +8,10 @@ A java program to convert files between CSV and Parquet formats.
 - ✅ Supports both relative and absolute file paths
 - ✅ CLI-friendly with argument parsing
 - ✅ Help command: `-h` or `--help`
+- ✅ Extensible architecture for future formats
+- ✅ Comprehensive input validation
+- ✅ Robust error handling
+- ✅ Configurable conversion options
 
 ---
 
@@ -43,21 +47,49 @@ java -jar target/my-converter-1.0.jar --help
 
 ### 📦 Components
 
-| Class/File              | Description                                                              |
-|-------------------------|--------------------------------------------------------------------------|
-| `ConverterService.java` | Main entry point. Parses CLI arguments, validates them, and runs logic.  |
-| `Converter.java`        | Interface that define the convert function.                              |
-| `CsvToParquet.java`     | Contains logic to read a CSV file and write it as Parquet format.        |
-| `ParquetToCsv.java`     | Contains logic to read a Parquet file and output it as CSV.              |
+| Package/Class              | Description                                                              |
+|----------------------------|--------------------------------------------------------------------------|
+| `Main.java`                | Application entry point                                                 |
+| `ConvertService.java`      | Main service orchestrator with CLI argument parsing                     |
+| **Core Package**           |                                                                          |
+| `FileFormat.java`          | Enumeration of supported file formats with detection logic              |
+| `FileConverter.java`       | Main converter interface with metadata support                          |
+| `ConversionContext.java`   | Context object for conversion operations (Builder pattern)              |
+| **Factory Package**        |                                                                          |
+| `ConverterFactory.java`    | Factory for creating appropriate converters                             |
+| **Registry Package**       |                                                                          |
+| `ConverterRegistry.java`   | Registry for managing and discovering converters                        |
+| **Formats Package**        |                                                                          |
+| `CsvToParquetConverter.java` | CSV to Parquet conversion implementation                               |
+| `ParquetToCsvConverter.java` | Parquet to CSV conversion implementation                               |
+| **Config Package**         |                                                                          |
+| `ServiceInitializer.java`  | Service bootstrap and converter registration                            |
+| **Validation Package**     |                                                                          |
+| `FileValidator.java`       | Input validation for file paths and formats                            |
+| **Exception Package**      |                                                                          |
+| `ConversionException.java` | Base exception for conversion operations                                |
+| `UnsupportedFormatException.java` | Exception for unsupported file formats                          |
 
+### 🏗️ Architecture
 
-Execution steps:
-  → MyConverter.java
-     → Parse CLI arguments
-     → Determine file extensions
-     → Route to CsvToParquet or ParquetToCsv
-     → Perform conversion
-     → Print success or error message
+The application now uses a modular, extensible architecture:
+
+- **Factory Pattern**: Centralized converter creation
+- **Registry Pattern**: Dynamic converter registration and discovery  
+- **Builder Pattern**: Flexible conversion context construction
+- **Strategy Pattern**: Pluggable conversion algorithms
+
+For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+Execution flow:
+  → Main.java
+     → ConvertService.java
+        → Parse CLI arguments and validate inputs
+        → ServiceInitializer.initialize()
+        → FileValidator.validatePaths()
+        → ConverterFactory.getConverter()
+        → FileConverter.convert()
+        → Print success or error message
 
 ## 📚 Dependencies
 
